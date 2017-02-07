@@ -7,7 +7,8 @@
     <meta name="description" content="learn javascript by www.liaoxuefeng.com">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
 </head>
 
 <body>
@@ -17,9 +18,9 @@
                 <a class="navbar-brand" href="#">Supermarket Management</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Inventory</a></li>
-                <li><a href="#">Sales</a></li>
-                <li><a href="#">Page 2</a></li>
+                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/sales">Sales</a></li>
+                <li><a href="/inventory">Inventory</a></li>
             </ul>
         </div>
     </nav>
@@ -29,12 +30,26 @@
         <div class="container">
             <p>
                 <a target="_self" href="/">Website</a> -
-                <a target="_blank" href="https://github.com/fengsifs/SupermarketManagement">GitHub</a> - 
+                <a target="_blank" href="https://github.com/fengsifs/SupermarketManagement">GitHub</a> -
                 <a target="_blank" href="http://weibo.com/feiyoshang">Weibo</a>
             </p>
             <p>This website is created by <a target="_blank" href="http://weibo.com/feiyoshang">@Marc_Feng</a>.</p>
         </div>
     </footer>
 </body>
+
+<script>
+    $(function() {
+        $(".navbar-nav a").each(function() {
+            $this = $(this);
+            if($this[0].href == String(window.location)) {
+                $this.parent().addClass("active");
+            } else {
+                $this.parent().removeClass("active");
+            }
+        })
+    })
+
+</script>
 
 </html>
