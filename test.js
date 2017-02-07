@@ -1,5 +1,5 @@
-require('babel-core/register')({
-    presets: ['stage-3']
-});
+var d3 = require("d3")
 
-require('./app-test.js');
+d3.tsv("http://localhost:3000/static/js/data.tsv", function(data){
+    console.log(data)
+})

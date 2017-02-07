@@ -7,8 +7,9 @@
     <meta name="description" content="learn javascript by www.liaoxuefeng.com">
     <title>{{ title }}</title>
     <link rel="stylesheet" href="/static/css/bootstrap.css">
-    <script src="/static/js/bootstrap.min.js"></script>
-    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="/static/css/visual.css">
+    <script src="/static/js/bootstrap.js"></script>
+    <script src="/static/js/jquery-3.1.1.js"></script>
     {% block header %} {% endblock %}
 </head>
 
@@ -19,7 +20,7 @@
                 <a class="navbar-brand" href="#">Supermarket Management</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="/">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="/sales">Sales</a></li>
                 <li><a href="/inventory">Inventory</a></li>
             </ul>
@@ -50,7 +51,6 @@
             }
         })
     })
-    {% block script %} {% endblock %}
 </script>
 
 </html>
