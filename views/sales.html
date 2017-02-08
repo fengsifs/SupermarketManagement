@@ -1,6 +1,16 @@
 {% extends "base.html" %} {% block header %}
 <script src="/static/js/sales.js"></script>
-<script src="/static/js/d3.js"></script>
+<script src="/static/js/d3.v3.js"></script>
+<style>
+    .chart div {
+        font: 10px sans-serif;
+        background-color: steelblue;
+        text-align: right;
+        padding: 3px;
+        margin: 1px;
+        color: white;
+    }
+</style>
 {% endblock %} {% block main %}
 
 <div class="container">
