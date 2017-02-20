@@ -35,47 +35,47 @@ function defineModel(name, attributes) {
             };
         }
     }
-    attrs.id = {
-        type: ID_TYPE,
-        primaryKey: true
-    };
-    attrs.createdAt = {
-        type: Sequelize.BIGINT,
-        allowNull: false
-    };
-    attrs.updatedAt = {
-        type: Sequelize.BIGINT,
-        allowNull: false
-    };
-    attrs.version = {
-        type: Sequelize.BIGINT,
-        allowNull: false
-    };
+    // attrs.id = {
+    //     type: ID_TYPE,
+    //     primaryKey: true
+    // };
+    // attrs.createdAt = {
+    //     type: Sequelize.BIGINT,
+    //     allowNull: false
+    // };
+    // attrs.updatedAt = {
+    //     type: Sequelize.BIGINT,
+    //     allowNull: false
+    // };
+    // attrs.version = {
+    //     type: Sequelize.BIGINT,
+    //     allowNull: false
+    // };
     return sequelize.define(name, attrs, {
         tableName: name,
         timestamps: false,
         hooks: {
             beforeValidate: function (obj) {
-                let now = Date.now();
+                // let now = Date.now();
                 if (obj.isNewRecord) {
                     console.log('will create entity...' + obj);
-                    if (!obj.id) {
-                        obj.id = generateId();
-                    }
-                    obj.createdAt = now;
-                    obj.updatedAt = now;
-                    obj.version = 0;
+                    // if (!obj.id) {
+                    //     obj.id = generateId();
+                    // }
+                    // obj.createdAt = now;
+                    // obj.updatedAt = now;
+                    // obj.version = 0;
                 } else {
                     console.log('will update entity...');
-                    obj.updatedAt = now;
-                    obj.version++;
+                    // obj.updatedAt = now;
+                    // obj.version++;
                 }
             }
         }
     });
 }
 
-const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATEONLY', 'BOOLEAN'];
+const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATE', 'BOOLEAN'];
 
 var exp = {
     defineModel: defineModel,

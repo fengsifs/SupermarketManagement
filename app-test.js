@@ -1,16 +1,15 @@
 const model = require('./model');
 
 let
-    Pet = model.Pet,
-    User = model.User;
+    Transaction = model.Transactions;
 
 (async () => {
-    var pets = await Pet.findAll({
+    var transactions = await Transaction.findAll({
         where: {
-            name: 'Garfield'
+            InvoiceNo: '536791'
         }
     });
-    console.log(`find ${pets.length} pets:`);
-    for (let p of pets)
-        console.log(JSON.stringify(p));
+    console.log(`find ${transactions.length} transactions:`);
+    for (let t of transactions)
+        console.log(JSON.stringify(t));
 })();
