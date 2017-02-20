@@ -5,8 +5,12 @@ let
 
 (async () => {
     var transactions = await Transaction.findAll({
+        // limit : 10,
         where: {
-            InvoiceNo: '536791'
+            invoiceDate: {
+                $lt: new Date('2010-12-05T10:20:00'),
+                $gt: new Date('2010-12-05T00:00:00')
+            }
         }
     });
     console.log(`find ${transactions.length} transactions:`);
