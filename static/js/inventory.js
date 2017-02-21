@@ -22,9 +22,14 @@ var chart = d3.select(".chart")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.tsv("/static/data.tsv", type, function(error, data) {
-  x.domain(data.map(function(d) { return d.name; }));
-  y.domain([0, d3.max(data, function(d) { return d.value; })]);
+d3.json("http://localhost:3000/data", function(error, data) {
+  data.forEach(function (d) {
+      d.daily = +d.daily;
+      d.date = d.date.slice(5, 10);
+  })
+
+  x.domain(data.map(function(d) { return d.date; }));
+  y.domain([0, d3.max(data, function(d) { return d.daily; })]);
 
   chart.append("g")
       .attr("class", "x axis")
@@ -39,13 +44,8 @@ d3.tsv("/static/data.tsv", type, function(error, data) {
       .data(data)
     .enter().append("rect")
       .attr("class", "bar")
-      .attr("x", function(d) { return x(d.name); })
-      .attr("y", function(d) { return y(d.value); })
-      .attr("height", function(d) { return height - y(d.value); })
+      .attr("x", function(d) { return x(d.date); })
+      .attr("y", function(d) { return y(d.daily); })
+      .attr("height", function(d) { return height - y(d.daily); })
       .attr("width", x.rangeBand());
 });
-
-function type(d) {
-  d.value = +d.value; // coerce to number
-  return d;
-}
