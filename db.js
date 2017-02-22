@@ -75,7 +75,7 @@ function defineModel(name, attributes) {
     });
 }
 
-const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATE', 'BOOLEAN'];
+const TYPES = ['STRING', 'INTEGER', 'BIGINT', 'TEXT', 'DOUBLE', 'DATEONLY', 'DATE', 'BOOLEAN'];
 
 var exp = {
     defineModel: defineModel,

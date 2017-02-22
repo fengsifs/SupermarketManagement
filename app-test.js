@@ -2,15 +2,15 @@ const model = require('./model');
 const data = require('./services/data');
 
 
-// let
-//     Transaction = model.Transactions,
-//     Daily = model.Daily
+let
+    Transaction = model.Transactions,
+    Daily = model.Daily
 
 // test group
-data.bySQL('select Date(invoiceDate) date, ROUND(SUM(sales), 2) daily from ' +
-    'transactions group by DATE(invoiceDate) limit 20;')
+data.bySQL('select Date(invoiceDate) invoiceDate, ROUND(SUM(sales), 2) sales from ' +
+    'transactions group by DATE(invoiceDate);')
     .then(function (results) {
-        console.log(JSON.stringify(results))
+        Daily.bulkCreate(results)
     });
 
 // test sum

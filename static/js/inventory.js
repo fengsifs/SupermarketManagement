@@ -22,7 +22,7 @@ var chart = d3.select(".chart")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.json("http://localhost:3000/data", function(error, data) {
+d3.json("/data", function(error, data) {
   data.forEach(function (d) {
       d.daily = +d.daily;
       d.date = d.date.slice(5, 10);

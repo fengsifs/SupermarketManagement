@@ -21,7 +21,248 @@
 }
 </style>
 {% endblock %} {% block main %}
-<svg class="chart"></svg>
-<script src="/static/js/d3.v3.js"></script>
-<script src="/static/js/inventory.js"></script>
+<div id="container"></div>
+<div><button id="inverted">Inverted</button></div>
+<script src="/static/js/highcharts.js"></script>
+<script>
+    var chart = Highcharts.chart('container', {
+
+        title: {
+            text: 'Chart.update'
+        },
+
+        subtitle: {
+            text: 'Plain'
+        },
+
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+        series: [{
+            type: 'column',
+            colorByPoint: true,
+            data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
+            showInLegend: false
+        }]
+
+    });
+
+
+    $('#inverted').click(function () {
+        $.getJSON('/data/daily', function (da) {
+            var d = [];
+            da.forEach((a) => {
+                d.push(a.daily);
+            });
+            chart.update({
+                chart: {
+                    inverted: false,
+                    polar: false
+                },
+                subtitle: {
+                    text: 'Inverted'
+                },
+                series: [{
+                    type: 'column',
+                    colorByPoint: true,
+                    data: d,
+                    showInLegend: false
+                }]
+            });
+        });
+
+    });
+//    $.getJSON('/data/daily', function (da) {
+//        var data = [];
+//        da.forEach(function (d) {
+//            let v = new Date(d.date);
+//            let r = Date.UTC(v.getFullYear(), v.getMonth(), v.getDate());
+//            d.dailt = +d.daily;
+//            data.push([r, d.daily]);
+//        });
+//        Highcharts.chart('container', {
+//            chart: {
+//                zoomType: 'x'
+//            },
+//            credits: {
+//                enabled: false
+//            },
+//            title: {
+//                text: 'USD to EUR exchange rate over time'
+//            },
+//            subtitle: {
+//                text: document.ontouchstart === undefined ?
+//                    'Click and drag in the plot area to zoom in' : 'Pinch the chart to zoom in'
+//            },
+//            xAxis: {
+//                type: 'datetime',
+//            },
+//            yAxis: {
+//                title: {
+//                    text: 'Exchange rate'
+//                }
+//            },
+//            legend: {
+//                enabled: false
+//            },
+//            plotOptions: {
+//                area: {
+//                    fillColor: {
+//                        linearGradient: {
+//                            x1: 0,
+//                            y1: 0,
+//                            x2: 0,
+//                            y2: 1
+//                        },
+//                        stops: [
+//                            [0, Highcharts.getOptions().colors[0]],
+//                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+//                        ]
+//                    },
+//                    marker: {
+//                        radius: 2
+//                    },
+//                    lineWidth: 1,
+//                    states: {
+//                        hover: {
+//                            lineWidth: 1
+//                        }
+//                    },
+//                    threshold: null
+//                }
+//            },
+//
+//            series: [{
+//                type: 'area',
+//                name: 'sales',
+//                data: data
+//            }]
+//        });
+//    });
+//    $(function () {
+//        Highcharts.chart('container', {
+//            title: {
+//                text: 'Combination chart'
+//            },
+//            xAxis: {
+//                categories: ['Apples', 'Oranges', 'Pears', 'Bananas', 'Plums']
+//            },
+//            labels: {
+//                items: [{
+//                    html: 'Total fruit consumption',
+//                    style: {
+//                        left: '50px',
+//                        top: '18px',
+//                        color: (Highcharts.theme && Highcharts.theme.textColor) || 'black'
+//                    }
+//                }]
+//            },
+//            credits: {
+//                enabled: false
+//            },
+//            series: [{
+//                type: 'column',
+//                name: 'Jane',
+//                data: [3, 2, 1, 3, 4]
+//            }, {
+//                type: 'column',
+//                name: 'John',
+//                data: [2, 3, 5, 7, 6]
+//            }, {
+//                type: 'column',
+//                name: 'Joe',
+//                data: [4, 3, 3, 9, 0]
+//            }, {
+//                type: 'spline',
+//                name: 'Average',
+//                data: [3, 2.67, 3, 6.33, 3.33],
+//                marker: {
+//                    lineWidth: 2,
+//                    lineColor: Highcharts.getOptions().colors[3],
+//                    fillColor: 'white'
+//                }
+//            }, {
+//                type: 'pie',
+//                name: 'Total consumption',
+//                data: [{
+//                    name: 'Jane',
+//                    y: 13,
+//                    color: Highcharts.getOptions().colors[0] // Jane's color
+//                }, {
+//                    name: 'John',
+//                    y: 23,
+//                    color: Highcharts.getOptions().colors[1] // John's color
+//                }, {
+//                    name: 'Joe',
+//                    y: 19,
+//                    color: Highcharts.getOptions().colors[2] // Joe's color
+//                }],
+//                center: [100, 80],
+//                size: 100,
+//                showInLegend: false,
+//                dataLabels: {
+//                    enabled: false
+//                }
+//            }]
+//        });
+//    });
+//    $(document).ready(function() {
+//        var options = {
+//            chart: {
+//                renderTo: 'container',
+//                type: 'column'
+//            },
+//            title: {
+//                text: 'Daily sales'
+//            },
+//            credits: {
+//                enabled: false
+//            },
+//            series: [{}]
+//        };
+//
+//        $.getJSON("/data",  function(data) {
+//            data.forEach(function (dd) {
+//                dd.daily = +dd.daily;
+//                options.series.push({name: dd.date, data: [dd.daily]});
+//            });
+//            var chart = new Highcharts.Chart(options);
+//        });
+//    });
+//    $(function () {
+//        var myChart = Highcharts.chart('contaier', {
+//            chart: {
+//                type: 'bar'
+//            },
+//            title: {
+//                text: 'Fruit Consumption'
+//            },
+//            xAxis: {
+//                categories: ['Apples', 'Bananas', 'Oranges']
+//            },
+//            yAxis: {
+//                title: {
+//                    text: 'Fruit eaten'
+//                }
+//            },
+//            series: [{
+//                name: 'Jane',
+//                data: [1, 5, 4]
+//            }, {
+//                name: 'John',
+//                data: [5, 7, 3]
+//            }, {
+//                name: 'Simon',
+//                data: [3, 2, 5]
+//            }],
+//            credits: {
+//                enabled: false
+//            }
+//        });
+//    });
+</script>
+<!--<svg class="chart"></svg>-->
+<!--<script src="/static/js/d3.v3.min.js"></script>-->
+<!--<script src="/static/js/inventory.js"></script>-->
 {% endblock %}

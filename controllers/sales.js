@@ -10,9 +10,8 @@ module.exports = {
             // res: JSON.stringify(pets)
         });
     },
-    'GET /data': async (ctx, next) => {
-        var data = await datas.bySQL("select Date(invoiceDate) date, ROUND(SUM(sales), 2) daily from " +
-            "transactions group by DATE(invoiceDate) limit 20");
+    'GET /data/daily/': async (ctx, next) => {
+        var data = await datas.bySQL("select invoiceDate date, sales daily from daily");
         ctx.response.type = 'application/json';
         ctx.response.body = data;
     }
